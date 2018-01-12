@@ -1,2 +1,13 @@
-<!--index.wxml-->
-<view class="full center-children">有个妈妈她叫小茄子</view>
+<!--pages/index/index.wxml-->
+
+<view class="full centering" id='bg'>
+  <text wx:if='{{isShameng}}'>有个妈妈她叫小茄子</text>
+  <navigator class='w100 release' hover-class='release-h' url='/pages/release/release'
+             style='height:{{topHalf}}px;line-height:{{topHalf}}px;'>
+    有车
+  </navigator>
+  <navigator class='w100 order' hover-class='order-h' url='/pages/order/order'
+             style='height:{{bottomHalf}}px;line-height:{{bottomHalf}}px;'>
+    约车
+  </navigator>
+</view>

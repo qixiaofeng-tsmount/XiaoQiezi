@@ -1,11 +1,15 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/order/order",
+    "pages/release/release",
+    "pages/order/list",
+    "pages/release/status"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "小茄子",
     "navigationBarTextStyle": "black"
   }
 }

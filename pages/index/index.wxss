@@ -1,6 +1,21 @@
 /**index.wxss**/
 
-.title {
-  font-weight: bold;
-  margin-bottom: 8px;
+.w100 {
+  text-align: center;
+}
+
+.order {
+  background-color: #f6fdf7;
+}
+
+.order-h {
+  background-color: #aaf9b5;
+}
+
+.release {
+  background-color: #fef6f7;
+}
+
+.release-h {
+  background-color: #fecace;
 }

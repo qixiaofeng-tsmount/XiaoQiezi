@@ -1,0 +1,9 @@
+<!--pages/order/order.wxml-->
+
+<view class='full centering'>
+  <text>起始地点</text>
+  <text>目的地点</text>
+  <text>出发时间</text>
+  <text>乘客人数</text>
+  <text>联系方式</text>
+</view>

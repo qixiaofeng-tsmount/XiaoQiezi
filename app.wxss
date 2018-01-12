@@ -1,5 +1,25 @@
 /**app.wxss**/
 
+.full {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.centering {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  /*align-items: center;*/
+}
+
 .m8 {
   margin: 8rpx 0rpx;
 }
@@ -12,16 +32,7 @@
   width: 80%;
 }
 
-.center-children {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.full {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+.title {
+  font-weight: bold;
+  margin-bottom: 8px;
 }

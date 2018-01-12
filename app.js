@@ -7,8 +7,10 @@ const logLoginTime = () => {
 }
 
 App({
-  onLaunch: function () {
+
+  onLaunch() {
     logLoginTime()
   },
+  
   globalData: {}
 })
