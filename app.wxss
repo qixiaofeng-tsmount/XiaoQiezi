@@ -1,0 +1,27 @@
+/**app.wxss**/
+
+.m8 {
+  margin: 8rpx 0rpx;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.w80 {
+  width: 80%;
+}
+
+.center-children {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.full {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
