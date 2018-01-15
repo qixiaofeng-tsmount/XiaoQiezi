@@ -17,7 +17,16 @@
 .row {
   display: flex;
   flex-direction: row;
-  /*align-items: center;*/
+  width: 100%;
+}
+
+.row > .label {
+  margin-left: 15px;
+  width: 85px;
+}
+
+.row .value {
+  color: gray;
 }
 
 .m8 {

@@ -6,4 +6,10 @@
   <text>出发时间</text>
   <text>乘客人数</text>
   <text>联系方式</text>
+  <view class='row'>
+    <view class='label'>目的</view>
+    <picker mode='multiSelector' value='{{selectedRoute}}' range='{{addresses}}'>
+      <view class='value'>{{addresses[0][selectedRoute[0]]}} 到 {{addresses[0][selectedRoute[0]]}}</view>
+    </picker>
+  </view>
 </view>

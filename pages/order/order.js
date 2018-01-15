@@ -1,11 +1,9 @@
 // pages/order/order.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
   
+  data: {
+    addresses: [['潞城', '宫'], ['潞城', '宫']],
+    selectedRoute: [0, 0]
   },
 
   /**
