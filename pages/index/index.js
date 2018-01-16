@@ -16,6 +16,13 @@ Page({
       const topHalf = height / 2
       const bottomHalf = height - topHalf
       this.setData({ topHalf, bottomHalf })
+
+      wx.request({
+        url: 'https://www.gsegment.com/qxf/',
+        success(res) {
+          console.log(res)
+        }
+      })
     })
   },
 

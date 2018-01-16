@@ -3,7 +3,10 @@ Page({
   
   data: {
     addresses: [['潞城', '宫'], ['潞城', '宫']],
-    selectedRoute: [0, 0]
+    selectedRoute: [0, 0],
+    time: '09:00',
+    availableSeats: 4,
+    possibleSeats: [1, 2, 3, 4, 5, 6, 7]
   },
 
   /**
