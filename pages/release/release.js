@@ -1,11 +1,14 @@
 // pages/release/release.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
   
+  data: {
+    addresses: [['潞城', '宫'], ['潞城', '宫']],
+    selectedRoute: [0, 0],
+    time: '09:00',
+    availableSeats: 4,
+    possibleSeats: [1, 2, 3, 4, 5, 6, 7],
+    carTypes: [['小车', 'SUV', '面包车'], ['白色', '黑色', '红色', '其他颜色']],
+    selectedType: [0, 0]
   },
 
   /**
