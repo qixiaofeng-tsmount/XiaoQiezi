@@ -2,68 +2,67 @@
 Page({
   
   data: {
-    addresses: [['潞城', '宫'], ['潞城', '宫']],
-    selectedRoute: [0, 0],
+    addresses: [
+      ['潞城', '宫'],
+      ['潞城', '宫']
+    ],
+    carTypes: [
+      ['小车', 'SUV', '面包车'],
+      ['白色', '黑色', '红色', '其他颜色']
+    ],
     time: '09:00',
-    availableSeats: 4,
     possibleSeats: [1, 2, 3, 4, 5, 6, 7],
-    carTypes: [['小车', 'SUV', '面包车'], ['白色', '黑色', '红色', '其他颜色']],
-    selectedType: [0, 0]
+    selectedRoute: [0, 0],
+    selectedType: [0, 0],
+    scIndex:3 // seats count index
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  changeRoute({ detail:{ value:selectedRoute } }) {
+    this.setData({ selectedRoute })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  changeType({ detail: { value: selectedType } }) {
+    this.setData({ selectedType })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  changeTime({ detail: { value: time } }) {
+    this.setData({ time })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  changeTailNum({ detail: { value: tailNum } }) {
+    this.setData({ tailNum })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
+  changePhoneNum({ detail: { value: phoneNum } }) {
+    this.setData({ phoneNum })
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
+  changeSeatsCount({ detail: { value: scIndex } }) {
+    this.setData({ scIndex })
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
+  release() {
+    const { scIndex, phoneNum, tailNum, time, selectType, selectedRoute } = this.data
+    let info = ''
+    if (selectedRoute[0] === selectedRoute[1]) {
+      info += '目的地和出发地一样，路径无效\n'
+    }
+    if (undefined === phoneNum || phoneNum.length != 11) {
+      info += ''
+    }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  onLoad() {
+    const now = new Date()
+    const h = now.getHours()
+    const hh = h < 10 ? '0' + h : '' + h
+    const m = now.getMinutes()
+    const mm = m < 10 ? '0' + m : '' + m
+    const time = hh + ':' + mm
+    this.setData({ time })
+  },
   
+  onUnload() {
+
   }
 })

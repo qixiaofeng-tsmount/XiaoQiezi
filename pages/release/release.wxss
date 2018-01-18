@@ -1,1 +1,12 @@
 /* pages/release/release.wxss */
+
+.row {
+  padding: 8px 0;
+  position: relative;
+}
+
+.row > button {
+  position: absolute;
+  right: 15px;
+  left: 15px;
+}

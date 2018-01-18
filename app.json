@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/release/release",
     "pages/index/index",
     "pages/order/order",
-    "pages/release/release",
     "pages/order/list",
     "pages/release/status"
   ],
