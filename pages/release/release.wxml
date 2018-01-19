@@ -2,28 +2,48 @@
 
 <view class='full centering'>
   <view class='row'>
-    <view class='label'>目标路径</view>
-    <picker class='value' mode='multiSelector'
-            value='{{route}}' range='{{addresses}}'
-            bindchange='changeRoute'>
-      {{addresses[0][route[0]]}} 到 {{addresses[1][route[1]]}}
-    </picker>
+    <view class='label'>出发地点</view>
+    <view wx:if='{{originInfo}}' class='info'>{{originInfo}}</view>
+  </view>
+  <view class='row'>
+    <checkbox-group bindchange='changeOrigins'>
+      <label wx:for='{{aOrigins}}' wx:key='index'>
+        <checkbox value='{{item.name}}' checked='{{item.checked}}' disabled='{{item.disabled}}'/>
+        {{item.name}}
+      </label>
+    </checkbox-group>
+  </view>
+  <view class='row'>
+    <view class='label'>目的地点</view>
+    <view wx:if='{{targetInfo}}' class='info'>{{targetInfo}}</view>
+  </view>
+  <view class='row'>
+    <checkbox-group bindchange='changeTargets'>
+      <label wx:for='{{aTargets}}' wx:key='index'>
+        <checkbox value='{{item.name}}' checked='{{item.checked}}' disabled='{{item.disabled}}'/>
+        {{item.name}}
+      </label>
+    </checkbox-group>
   </view>
   <view class='row'>
     <view class='label'>出发时间</view>
-    <picker class='value' mode='time' value='{{time}}' bindchange='changeTime'>
-      {{time}}
+    <picker class='value' mode='date' value='{{dDate}}' bindchange='changeDate'>
+      {{dDate}}
+    </picker>
+    <text decode='true'>&nbsp;</text>
+    <picker class='value' mode='time' value='{{dTime}}' bindchange='changeTime'>
+      {{dTime}}
     </picker>
   </view>
-  <view class='row'>
+  <view class='row mt8'>
     <view class='label'>座位数目</view>
     <picker class='value' mode='selector'
-            value='{{seatsType}}' range='{{possibleSeats}}'
+            value='{{possibleSeats.indexOf(seatsCount)}}' range='{{possibleSeats}}'
             bindchange='changeSeatsCount'>
-      {{possibleSeats[seatsType]}}
+      {{seatsCount}}
     </picker>
   </view>
-  <view class='row'>
+  <view class='row mt8'>
     <view class='label'>汽车型号</view>
     <picker class='value' mode='multiSelector'
             value='{{carType}}' range='{{carTypes}}'
@@ -31,18 +51,17 @@
       {{carTypes[1][carType[1]]}}{{carTypes[0][carType[0]]}}
     </picker>
   </view>
-  <view class='row'>
-    <view class='label'>车牌尾号</view>
+  <view class='row mt8'>
+    <view class='label {{tailInfo ? "info" : ""}}'>车牌尾号</view>
     <input class='value' type='text' placeholder='车牌后3位'
-           bindblur='changeTailNum' value='{{tailNum}}'></input>
+           bindblur='changeTail' bindinput='testTail' value='{{tailNum}}'></input>
   </view>
-  <view class='row'>
-    <view class='label'>联系方式</view>
-    <input class='value' type='number' placeholder='手机号码'
-           bindblur='changePhoneNum' value='{{phoneNum}}'></input>
+  <view class='row mt8'>
+    <view class='label {{phoneInfo ? "info" : ""}}'>联系方式</view>
+    <input class='value' type='number' placeholder='11 位手机号码'
+           bindblur='changePhone' bindinput='testPhone' value='{{phoneNum}}'></input>
   </view>
-  <view class='row btn'>
+  <view class='row btn mt8'>
     <button size='default' type='primary' bindtap='release'>发布</button>
   </view>
-  <view class='row' style='color:red;' wx:if='{{info}}'><text class='info'>{{info}}</text></view>
 </view>

@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/release/release",
-    "pages/index/index",
+    "pages/release/status",
     "pages/order/order",
     "pages/order/list",
-    "pages/release/status"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

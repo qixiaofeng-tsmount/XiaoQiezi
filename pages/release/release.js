@@ -1,25 +1,37 @@
 // pages/release/release.js
 
 const { usdt } = require('../../utils/util')
+const { addresses, carTypes, possibleSeats } = usdt
+const atLeastOne = '请至少选择一个'
+
+let origins = [addresses[0]]
+let targets = [addresses[1]]
+
+const availableOrigins = () => addresses.map(item => ({
+  name: item, disabled: targets.includes(item),
+  checked: origins.includes(item) && false === targets.includes(item)
+}))
+
+const availableTargets = () => addresses.map(item => ({
+  name: item, disabled: origins.includes(item),
+  checked: targets.includes(item) && false === origins.includes(item)
+}))
 
 Page({
 
   data: {
-    addresses: [
-      ['潞城', '宫'],
-      ['潞城', '宫']
-    ],
-    carTypes: [
-      ['小车', 'SUV', '面包车'],
-      ['白色', '黑色', '红色', '其他颜色']
-    ],
-    time: '09:00',
-    possibleSeats: [1, 2, 3, 4, 5, 6, 7],
+    aOrigins: availableOrigins(),
+    aTargets: availableTargets(),
+    carTypes,
+    possibleSeats,
 
-    route: [0, 1],
+    time: '09:00',
     carType: [0, 0],
-    seatsType: 3,
-    info: false
+    seatsCount: 4,
+    originInfo: false,
+    targetInfo: false,
+    tailInfo: false,
+    phoneInfo: false
   },
 
   initTime() {
@@ -32,8 +44,22 @@ Page({
     this.setData({ time })
   },
 
-  changeRoute({ detail: { value: route } }) {
-    this.setData({ route, info: false })
+  changeOrigins({ detail: { value } }) {
+    origins = value
+    this.setData({
+      aOrigins: availableOrigins(),
+      aTargets: availableTargets(),
+      originInfo: origins.length > 0 ? false : atLeastOne
+    })
+  },
+
+  changeTargets({ detail: { value } }) {
+    targets = value
+    this.setData({
+      aOrigins: availableOrigins(),
+      aTargets: availableTargets(),
+      targetInfo: targets.length > 0 ? false : atLeastOne
+    })
   },
 
   changeType({ detail: { value: carType } }) {
@@ -44,44 +70,57 @@ Page({
     this.setData({ time })
   },
 
-  changeTailNum({ detail: { value: tailNum } }) {
-    this.setData({ tailNum, info: false })
+  changeSeatsCount({ detail: { value } }) {
+    this.setData({ seatsCount: possibleSeats[value] })
   },
 
-  changePhoneNum({ detail: { value: phoneNum } }) {
-    this.setData({ phoneNum, info: false })
+  changeTail({ detail: { value: tailNum } }) {
+    this.setData({ tailNum })
   },
 
-  changeSeatsCount({ detail: { value: seatsType } }) {
-    this.setData({ seatsType })
+  changePhone({ detail: { value: phoneNum } }) {
+    this.setData({ phoneNum })
+  },
+
+  testTail({ detail: { value } }) {
+    const { tailInfo } = this.data
+    const isValid = (value.length >= 3)
+    if (tailInfo === isValid) {
+      this.setData({ tailInfo: false === isValid })
+    }
+  },
+
+  testPhone({ detail: { value } }) {
+    const { phoneInfo } = this.data
+    const isValid = (value.length === 11)
+    if (phoneInfo === isValid) {
+      this.setData({ phoneInfo: false === isValid })
+    }
   },
 
   release() {
-    const {
-      route, time,
-      seatsType, selectType,
-      tailNum, phoneNum
+    let {
+      time, seatsCount, selectType,
+      tailNum, phoneNum,
+      originInfo, targetInfo, tailInfo, phoneInfo
     } = this.data
 
-    let info = ''
-    if (route[0] === route[1]) {
-      info += '目的地和出发地一样，路径无效'
-    }
-    if (undefined === phoneNum || phoneNum.length != 11) {
-      info += '\n无效手机号，请输入 11 位手机号码'
-    }
     if (undefined === tailNum || tailNum.length < 3) {
-      info += '\n请输入至少三位车牌尾号'
+      tailInfo = true
     }
-    if (0 === info.length) {
+    if (undefined === phoneNum || phoneNum.length < 11) {
+      phoneInfo = true
+    }
+    this.setData({ tailInfo, phoneInfo })
+
+    const invalid = originInfo || targetInfo || tailInfo || phoneInfo
+    if (false === invalid) {
       usdt.release({
-        route, time,
-        seatsType, selectType,
+        origins, targets, time,
+        seatsCount, selectType,
         tailNum, phoneNum
       })
       wx.reLaunch({ url: '/pages/index/index' })
-    } else {
-      this.setData({ info })
     }
   },
 

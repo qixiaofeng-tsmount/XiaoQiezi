@@ -1,8 +1,11 @@
 /* pages/release/release.wxss */
 
 .row {
-  padding: 8px 0;
   position: relative;
+}
+
+.row.mt8 {
+  margin-top: 8px;
 }
 
 .row > button {
@@ -16,5 +19,16 @@
 }
 
 .row > .info {
-  padding: 0 15px;
+  color: red;
+}
+
+.row > checkbox-group {
+  margin: 0 15px;
+  line-height: 30px;
+}
+
+.row > checkbox-group > label {
+  display: inline-block;
+  font-size: 15px;
+  width: 33%;
 }

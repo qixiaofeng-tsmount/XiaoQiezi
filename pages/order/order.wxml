@@ -4,7 +4,7 @@
   <view class='row'>
     <view class='label'>目标路径</view>
     <picker class='value' mode='multiSelector' value='{{selectedRoute}}' range='{{addresses}}'>
-      {{addresses[0][selectedRoute[0]]}} 到 {{addresses[0][selectedRoute[0]]}}
+      {{addresses[0][selectedRoute[0]]}} 到 {{addresses[1][selectedRoute[1]]}}
     </picker>
   </view>
   <view class='row'>
@@ -15,15 +15,16 @@
   </view>
   <view class='row'>
     <view class='label'>乘客人数</view>
-    <picker class='value' mode='selector' value='{{availableSeats}}' range='{{possibleSeats}}'>
-      {{availableSeats}}
+    <picker class='value' mode='selector' bindchange='changeSeats'
+            value='{{possibleSeats.indexOf(needSeats)}}' range='{{possibleSeats}}'>
+      {{needSeats}}
     </picker>
   </view>
   <view class='row'>
     <view class='label'>联系方式</view>
     <input class='value' type='number' placeholder='手机号码'></input>
   </view>
-  <view class='row'>
+  <view class='row btn'>
     <button size='default' type='primary'>约车</button>
   </view>
 </view>

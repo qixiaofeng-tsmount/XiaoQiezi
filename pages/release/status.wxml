@@ -1,2 +1,13 @@
 <!--pages/release/status.wxml-->
-<text>pages/release/status.wxml</text>
+
+<view class='full'>
+  <view>您已发布 {{time}} {{addresses[0][route[0]]}}到{{addresses[1][route[1]]}}</view>
+  <view>剩余 {{seatsCount}} 个座位</view>
+  <view>
+    预留信息：{{catTypes[1][catType[1]]}}{{catTypes[0][catType[0]]}}
+    尾号{{tailNum}}，{{phoneNum}}
+  </view>
+
+  <button wx:if='{{canBeCanceled}}' bindtap='cancel'>撤销</button>
+  <button wx:else type='primary' bindtap='complete'>完成</button>
+</view>

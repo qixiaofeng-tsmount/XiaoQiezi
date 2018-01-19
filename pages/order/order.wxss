@@ -1,1 +1,15 @@
 /* pages/order/order.wxss */
+
+.row {
+  padding-bottom: 8px;
+}
+
+.row.btn {
+  position: relative;
+}
+
+.row > button {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+}

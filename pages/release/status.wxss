@@ -1,1 +1,9 @@
 /* pages/release/status.wxss */
+
+.full {
+  padding: 0 15px;
+}
+
+.full > view {
+  padding-bottom: 8px;
+}

@@ -23,6 +23,18 @@ const tmp_okey = 'ordered'
 const tmp_lrkey = 'last-released'
 const tmp_lokey = 'last-ordered'
 const usdt = { // user data
+  addresses: [
+    '潞城', '潮白家园', '潮白馨居',
+    '宫一', '宫二', '宫三',
+    '宫四', '宫五', '宫六',
+    '宫七', '宫八', '宫九', '宫十'
+  ],
+  carTypes: [
+    ['小车', 'SUV', '面包车'],
+    ['白色', '黑色', '红色', '其他颜色']
+  ],
+  possibleSeats: [1, 2, 3, 4, 5, 6, 7],
+  
   getReleased() {
     return wx.getStorageSync(tmp_rkey) || undefined
   },
@@ -64,7 +76,12 @@ const _ = (id, cb) => {
   wx.createSelectorQuery().select('#' + id).boundingClientRect(cb).exec()
 }
 
+const oneSecond = 1000
+const oneMinute = 60 * oneSecond
+const oneHour = 60 * oneMinute
+
 module.exports = {
+  oneSecond, oneMinute, oneHour,
   formatTime,
   usdt,
   _
