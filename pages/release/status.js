@@ -1,14 +1,15 @@
 // pages/release/status.js
 
-const { usdt, oneMinute } = require('../../utils/util')
+const {
+  usdt, oneMinute, formatDate, formatTime
+} = require('../../utils/util')
 const { addresses, carTypes, possibleSeats } = usdt
 
 Page({
 
   data: {
     addresses, carTypes, possibleSeats,
-    canBeCanceled: true,
-    isTimePassed: false
+    canBeCanceled: true
   },
 
   cancel() {
@@ -25,7 +26,8 @@ Page({
     })
   },
   complete() {
-
+    usdt.completeReleased()
+    wx.reLaunch({ url: '/pages/index/index' })
   },
 
   onLoad() {
@@ -35,14 +37,21 @@ Page({
       return
     }
     const {
-      route, time,
-      seatsCount, carType,
-      tailNum, phoneNum
+      time, origins, targets,
+      seatsCount, carType, carColor,
+      carTail, phone
     } = released
+    const parsedTime = new Date(time)
+    let dDate = formatDate(parsedTime)
+    if (dDate === formatDate(new Date())) {
+      dDate = '今天'
+    }
+    const canBeCanceled = time > Date.now()
+    const dTime = formatTime(parsedTime)
     this.setData({
-      route, time,
-      seatsCount, carType,
-      tailNum, phoneNum
+      dDate, dTime, origins, targets,
+      seatsCount, carType, carColor,
+      carTail, phone, canBeCanceled
     })
   }
 })

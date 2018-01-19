@@ -3,28 +3,36 @@
 <view class='full centering'>
   <view class='row'>
     <view class='label'>目标路径</view>
-    <picker class='value' mode='multiSelector' value='{{selectedRoute}}' range='{{addresses}}'>
-      {{addresses[0][selectedRoute[0]]}} 到 {{addresses[1][selectedRoute[1]]}}
+    <picker class='value' mode='multiSelector'
+            value='{{[addresses.indexOf(origin), addresses.indexOf(target)]}}'
+            range='{{[addresses, addresses]}}' bindchange='changeRoute'>
+      {{origin}} 到 {{target}}
     </picker>
   </view>
   <view class='row'>
     <view class='label'>出发时间</view>
-    <picker class='value' mode='time' value='{{time}}' start='00:00' end='23:59'>
-      {{time}}
+    <picker class='value' mode='date' value='{{dDate}}' bindchange='changeDate'>
+      {{dDate}}
+    </picker>
+    <text decode='true'>&nbsp;</text>
+    <picker class='value' mode='time' value='{{dTime}}' bindchange='changeTime'>
+      {{dTime}}
     </picker>
   </view>
   <view class='row'>
     <view class='label'>乘客人数</view>
     <picker class='value' mode='selector' bindchange='changeSeats'
-            value='{{possibleSeats.indexOf(needSeats)}}' range='{{possibleSeats}}'>
-      {{needSeats}}
+            value='{{dSeats}}' range='{{possibleSeats}}'>
+      {{possibleSeats[dSeats]}}
     </picker>
   </view>
   <view class='row'>
-    <view class='label'>联系方式</view>
-    <input class='value' type='number' placeholder='手机号码'></input>
+    <view class='label {{phoneInfo ? "info" : ""}}'>联系方式</view>
+    <input class='value' type='number' placeholder='手机号码'
+           bindinput='testPhone' bindblur='changePhone' value='{{phone}}'>
+    </input>
   </view>
   <view class='row btn'>
-    <button size='default' type='primary'>约车</button>
+    <button size='default' type='primary' bindtap='order'>约车</button>
   </view>
 </view>

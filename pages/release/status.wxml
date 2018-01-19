@@ -1,11 +1,18 @@
 <!--pages/release/status.wxml-->
 
 <view class='full'>
-  <view>您已发布 {{time}} {{addresses[0][route[0]]}}到{{addresses[1][route[1]]}}</view>
+  <view>请于 {{dDate}} {{dTime}} 发车</view>
+  <view>
+    出发地点：
+    <text wx:for='{{origins}}' wx:key='index'>{{index === 0 ? '' : '，'}}{{item}}</text>
+  </view>
+  <view>
+    去往：
+    <text wx:for='{{targets}}' wx:key='index'>{{index === 0 ? '' : '，'}}{{item}}</text>
+  </view>
   <view>剩余 {{seatsCount}} 个座位</view>
   <view>
-    预留信息：{{catTypes[1][catType[1]]}}{{catTypes[0][catType[0]]}}
-    尾号{{tailNum}}，{{phoneNum}}
+    {{carColor}}{{carType}}，尾号 {{carTail}}，{{phone}}
   </view>
 
   <button wx:if='{{canBeCanceled}}' bindtap='cancel'>撤销</button>

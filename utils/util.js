@@ -1,16 +1,18 @@
+const dateSep = '-'
+const timeSep = ':'
 
 const formatTime = date => {
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  return [hour, minute].map(formatNumber).join(timeSep)
+}
+
+const formatDate = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
 
-  const ymd = [year, month, day].map(formatNumber).join('/')
-  const hms = [hour, minute, second].map(formatNumber).join(':')
-
-  return ymd + ' ' + hms
+  return [year, month, day].map(formatNumber).join(dateSep)
 }
 
 const formatNumber = n => {
@@ -18,10 +20,25 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const tmp_rkey = 'released'
-const tmp_okey = 'ordered'
-const tmp_lrkey = 'last-released'
-const tmp_lokey = 'last-ordered'
+const parseDateTime = (date, time) => {
+  let dateObj = new Date()
+  const [year, month, day] = date.split(dateSep)
+  dateObj.setFullYear(parseInt(year))
+  dateObj.setMonth(parseInt(month) - 1)
+  dateObj.setDate(parseInt(day))
+  const [hour, minute] = time.split(timeSep)
+  dateObj.setHours(parseInt(hour))
+  dateObj.setMinutes(parseInt(minute))
+  dateObj.setMilliseconds(0)
+  dateObj.setSeconds(0)
+  return dateObj.getTime()
+}
+
+const tmp_rdkey = 'released'
+const tmp_odkey = 'ordered'
+const tmp_lrdkey = 'last-released'
+const tmp_okey = 'order'
+const tmp_lokey = 'last-order'
 const usdt = { // user data
   addresses: [
     '潞城', '潮白家园', '潮白馨居',
@@ -29,46 +46,50 @@ const usdt = { // user data
     '宫四', '宫五', '宫六',
     '宫七', '宫八', '宫九', '宫十'
   ],
-  carTypes: [
-    ['小车', 'SUV', '面包车'],
-    ['白色', '黑色', '红色', '其他颜色']
-  ],
+  carTypes: ['小轿车', 'SUV', '面包车'],
+  carColors:  ['白色', '黑色', '红色', '其他颜色'],
   possibleSeats: [1, 2, 3, 4, 5, 6, 7],
   
   getReleased() {
-    return wx.getStorageSync(tmp_rkey) || undefined
+    return wx.getStorageSync(tmp_rdkey) || undefined
   },
   getOrdered() {
-    return wx.getStorageSync(tmp_okey) || undefined
+    return wx.getStorageSync(tmp_odkey) || undefined
   },
   getLastReleased() {
-    return wx.getStorageSync(tmp_lrkey) || undefined
+    return wx.getStorageSync(tmp_lrdkey) || undefined
   },
-  getLastOrdered() {
+  getOrdered() {
+    return wx.getStorageSync(tmp_odkey) || undefined
+  },
+  getLastOrder() {
     return wx.getStorageSync(tmp_lokey) || undefined
   },
   getCandidates() {
     return []
   },
   release(info) {
-    wx.setStorageSync(tmp_rkey, info)
-    wx.setStorageSync(tmp_lrkey, info)
+    wx.setStorageSync(tmp_rdkey, info)
+    wx.setStorageSync(tmp_lrdkey, info)
   },
   order(info) {
+    wx.setStorageSync(tmp_odkey, info)
+  },
+  createOrder(info) {
     wx.setStorageSync(tmp_okey, info)
     wx.setStorageSync(tmp_lokey, info)
   },
   cancelReleased() {
-    wx.removeStorageSync(tmp_rkey)
+    wx.removeStorageSync(tmp_rdkey)
   },
   cancelOrdered() {
-    wx.removeStorageSync(tmp_okey)
+    wx.removeStorageSync(tmp_odkey)
   },
   completeReleased() {
-    wx.removeStorageSync(tmp_rkey)
+    wx.removeStorageSync(tmp_rdkey)
   },
   completeOrdered() {
-    wx.removeStorageSync(tmp_okey)
+    wx.removeStorageSync(tmp_odkey)
   }
 }
 
@@ -80,9 +101,13 @@ const oneSecond = 1000
 const oneMinute = 60 * oneSecond
 const oneHour = 60 * oneMinute
 
+const isValidPhone = phone => (phone.length === 11)
+const isValidCarTail = carTail => (carTail.length >= 3)
+
 module.exports = {
   oneSecond, oneMinute, oneHour,
-  formatTime,
+  formatDate, formatTime, parseDateTime,
+  isValidPhone, isValidCarTail,
   usdt,
   _
 }

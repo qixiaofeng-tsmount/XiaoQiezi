@@ -13,3 +13,7 @@
   left: 15px;
   right: 15px;
 }
+
+.row > .label.info {
+  color: red;
+}

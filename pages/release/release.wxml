@@ -7,7 +7,7 @@
   </view>
   <view class='row'>
     <checkbox-group bindchange='changeOrigins'>
-      <label wx:for='{{aOrigins}}' wx:key='index'>
+      <label wx:for='{{dOrigins}}' wx:key='index'>
         <checkbox value='{{item.name}}' checked='{{item.checked}}' disabled='{{item.disabled}}'/>
         {{item.name}}
       </label>
@@ -19,7 +19,7 @@
   </view>
   <view class='row'>
     <checkbox-group bindchange='changeTargets'>
-      <label wx:for='{{aTargets}}' wx:key='index'>
+      <label wx:for='{{dTargets}}' wx:key='index'>
         <checkbox value='{{item.name}}' checked='{{item.checked}}' disabled='{{item.disabled}}'/>
         {{item.name}}
       </label>
@@ -46,20 +46,21 @@
   <view class='row mt8'>
     <view class='label'>汽车型号</view>
     <picker class='value' mode='multiSelector'
-            value='{{carType}}' range='{{carTypes}}'
+            value='{{[carColors.indexOf(carColor), carTypes.indexOf(carType)]}}'
+            range='{{[carColors, carTypes]}}'
             bindchange='changeType'>
-      {{carTypes[1][carType[1]]}}{{carTypes[0][carType[0]]}}
+      {{carColor}}{{carType}}
     </picker>
   </view>
   <view class='row mt8'>
     <view class='label {{tailInfo ? "info" : ""}}'>车牌尾号</view>
     <input class='value' type='text' placeholder='车牌后3位'
-           bindblur='changeTail' bindinput='testTail' value='{{tailNum}}'></input>
+           bindblur='changeTail' bindinput='testTail' value='{{carTail}}'></input>
   </view>
   <view class='row mt8'>
     <view class='label {{phoneInfo ? "info" : ""}}'>联系方式</view>
     <input class='value' type='number' placeholder='11 位手机号码'
-           bindblur='changePhone' bindinput='testPhone' value='{{phoneNum}}'></input>
+           bindblur='changePhone' bindinput='testPhone' value='{{phone}}'></input>
   </view>
   <view class='row btn mt8'>
     <button size='default' type='primary' bindtap='release'>发布</button>
