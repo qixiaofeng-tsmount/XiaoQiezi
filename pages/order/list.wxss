@@ -1,1 +1,34 @@
 /* pages/order/list.wxss */
+
+view {
+  padding: 0 15px 8px 15px;
+}
+
+view.order {
+  font-size: 12px;
+}
+
+view.c {
+  text-align: center;
+}
+
+view.sl {
+  border-bottom: 1px solid gray;
+}
+
+view.list > view {
+  padding: 8px 0;
+}
+
+view.list > view.cands:first-child {
+  border-top: 0;
+}
+
+view.list > view.cands {
+  line-height: 30px;
+  border-top: 1px solid lightgray;
+}
+
+view.list > view.cands > button {
+  float: right;
+}

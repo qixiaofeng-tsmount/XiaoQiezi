@@ -1,7 +1,7 @@
 // pages/release/status.js
 
 const {
-  usdt, oneMinute, formatDate, formatTime
+  usdt, oneMinute, formatDateTime
 } = require('../../utils/util')
 const { addresses, carTypes, possibleSeats } = usdt
 
@@ -41,15 +41,10 @@ Page({
       seatsCount, carType, carColor,
       carTail, phone
     } = released
-    const parsedTime = new Date(time)
-    let dDate = formatDate(parsedTime)
-    if (dDate === formatDate(new Date())) {
-      dDate = '今天'
-    }
     const canBeCanceled = time > Date.now()
-    const dTime = formatTime(parsedTime)
+    const { datetime:dDatetime } = formatDateTime(new Date(time))
     this.setData({
-      dDate, dTime, origins, targets,
+      dDatetime, origins, targets,
       seatsCount, carType, carColor,
       carTail, phone, canBeCanceled
     })

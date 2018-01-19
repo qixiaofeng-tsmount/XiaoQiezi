@@ -1,7 +1,7 @@
 <!--pages/release/status.wxml-->
 
 <view class='full'>
-  <view>请于 {{dDate}} {{dTime}} 发车</view>
+  <view>请于{{dDatetime}}发车</view>
   <view>
     出发地点：
     <text wx:for='{{origins}}' wx:key='index'>{{index === 0 ? '' : '，'}}{{item}}</text>

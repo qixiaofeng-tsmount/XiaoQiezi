@@ -1,2 +1,16 @@
 <!--pages/order/list.wxml-->
-<text>pages/order/list.wxml</text>
+
+<view class='order c'>
+  您已发出{{dDatetime}}时{{needSeats}}人从{{origin}}到{{target}}的订单
+</view>
+<view class='c'>
+  <button size='mini'>撤销订单</button>
+</view>
+<view class='order c sl'>下拉可刷新页面</view>
+
+<view class='list'>
+  <view wx:for='{{candidates}}' wx:key='index' class='cands'>
+    {{item.dDatetime}}出发，{{item.carType}}
+    <button size='mini' type='primary'>预约</button>
+  </view>
+</view>
