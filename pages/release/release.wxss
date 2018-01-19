@@ -10,3 +10,11 @@
   right: 15px;
   left: 15px;
 }
+
+.row.btn {
+  height: 60px;
+}
+
+.row > .info {
+  padding: 0 15px;
+}

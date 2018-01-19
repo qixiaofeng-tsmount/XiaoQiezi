@@ -18,45 +18,47 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const to = path => { wx.navigateTo({ url: path }) }
-
-const gpsKey = 'gps-history'
-const gps = toSave => {
-  let gpsData = wx.getStorageSync(gpsKey) || []
-  if (undefined === toSave ||
-    undefined === toSave.lat ||
-    undefined === toSave.lng) {
-    return gpsData
-  } else if (false === toSave) {
-    wx.removeStorageSync(gpsKey)
-  } else {
-    for (let item of gpsData) {
-      if (item[0] === toSave.lat && item[1] === toSave.lng) {
-        return
-      }
-    }
-    gpsData.push([toSave.lat, toSave.lng, Date.now()])
-    wx.setStorageSync(gpsKey, gpsData)
+const tmp_rkey = 'released'
+const tmp_okey = 'ordered'
+const tmp_lrkey = 'last-released'
+const tmp_lokey = 'last-ordered'
+const usdt = { // user data
+  getReleased() {
+    return wx.getStorageSync(tmp_rkey) || undefined
+  },
+  getOrdered() {
+    return wx.getStorageSync(tmp_okey) || undefined
+  },
+  getLastReleased() {
+    return wx.getStorageSync(tmp_lrkey) || undefined
+  },
+  getLastOrdered() {
+    return wx.getStorageSync(tmp_lokey) || undefined
+  },
+  getCandidates() {
+    return []
+  },
+  release(info) {
+    wx.setStorageSync(tmp_rkey, info)
+    wx.setStorageSync(tmp_lrkey, info)
+  },
+  order(info) {
+    wx.setStorageSync(tmp_okey, info)
+    wx.setStorageSync(tmp_lokey, info)
+  },
+  cancelReleased() {
+    wx.removeStorageSync(tmp_rkey)
+  },
+  cancelOrdered() {
+    wx.removeStorageSync(tmp_okey)
+  },
+  completeReleased() {
+    wx.removeStorageSync(tmp_rkey)
+  },
+  completeOrdered() {
+    wx.removeStorageSync(tmp_okey)
   }
 }
-
-const collectionKey = 'collect-history'
-const collection = indexToSave => {
-  let clct = wx.getStorageSync(collectionKey) || []
-  if (undefined === indexToSave ||
-    undefined === indexToSave.emblemIndex ||
-    undefined === indexToSave.locName) {
-    return clct
-  } else if (false === indexToSave) {
-    wx.removeStorageSync(collectionKey)
-  } else {
-    clct.push([indexToSave.locName, indexToSave.emblemIndex, Date.now()])
-    wx.setStorageSync(collectionKey, clct)
-  }
-}
-
-const fixFloatLength = 5
-const cutFloat = num => parseFloat(num.toFixed(fixFloatLength))
 
 const _ = (id, cb) => {
   wx.createSelectorQuery().select('#' + id).boundingClientRect(cb).exec()
@@ -64,9 +66,6 @@ const _ = (id, cb) => {
 
 module.exports = {
   formatTime,
-  to,
-  gps,
-  collection,
-  cutFloat,
+  usdt,
   _
 }

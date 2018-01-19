@@ -4,9 +4,9 @@
   <view class='row'>
     <view class='label'>目标路径</view>
     <picker class='value' mode='multiSelector'
-            value='{{selectedRoute}}' range='{{addresses}}'
+            value='{{route}}' range='{{addresses}}'
             bindchange='changeRoute'>
-      {{addresses[0][selectedRoute[0]]}} 到 {{addresses[1][selectedRoute[1]]}}
+      {{addresses[0][route[0]]}} 到 {{addresses[1][route[1]]}}
     </picker>
   </view>
   <view class='row'>
@@ -18,17 +18,17 @@
   <view class='row'>
     <view class='label'>座位数目</view>
     <picker class='value' mode='selector'
-            value='{{scIndex}}' range='{{possibleSeats}}'
+            value='{{seatsType}}' range='{{possibleSeats}}'
             bindchange='changeSeatsCount'>
-      {{possibleSeats[scIndex]}}
+      {{possibleSeats[seatsType]}}
     </picker>
   </view>
   <view class='row'>
     <view class='label'>汽车型号</view>
     <picker class='value' mode='multiSelector'
-            value='{{selectedType}}' range='{{carTypes}}'
+            value='{{carType}}' range='{{carTypes}}'
             bindchange='changeType'>
-      {{carTypes[1][selectedType[1]]}}{{carTypes[0][selectedType[0]]}}
+      {{carTypes[1][carType[1]]}}{{carTypes[0][carType[0]]}}
     </picker>
   </view>
   <view class='row'>
@@ -41,8 +41,8 @@
     <input class='value' type='number' placeholder='手机号码'
            bindblur='changePhoneNum' value='{{phoneNum}}'></input>
   </view>
-  <view class='row'>
+  <view class='row btn'>
     <button size='default' type='primary' bindtap='release'>发布</button>
   </view>
-  <view class='row' style='color:red;' wx:if='{{info}}'><text>{{info}}</text></view>
+  <view class='row' style='color:red;' wx:if='{{info}}'><text class='info'>{{info}}</text></view>
 </view>

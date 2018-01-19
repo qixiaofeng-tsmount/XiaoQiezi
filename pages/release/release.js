@@ -1,6 +1,9 @@
 // pages/release/release.js
+
+const { usdt } = require('../../utils/util')
+
 Page({
-  
+
   data: {
     addresses: [
       ['潞城', '宫'],
@@ -12,47 +15,14 @@ Page({
     ],
     time: '09:00',
     possibleSeats: [1, 2, 3, 4, 5, 6, 7],
-    selectedRoute: [0, 0],
-    selectedType: [0, 0],
-    scIndex:3 // seats count index
+
+    route: [0, 1],
+    carType: [0, 0],
+    seatsType: 3,
+    info: false
   },
 
-  changeRoute({ detail:{ value:selectedRoute } }) {
-    this.setData({ selectedRoute })
-  },
-
-  changeType({ detail: { value: selectedType } }) {
-    this.setData({ selectedType })
-  },
-
-  changeTime({ detail: { value: time } }) {
-    this.setData({ time })
-  },
-
-  changeTailNum({ detail: { value: tailNum } }) {
-    this.setData({ tailNum })
-  },
-
-  changePhoneNum({ detail: { value: phoneNum } }) {
-    this.setData({ phoneNum })
-  },
-
-  changeSeatsCount({ detail: { value: scIndex } }) {
-    this.setData({ scIndex })
-  },
-
-  release() {
-    const { scIndex, phoneNum, tailNum, time, selectType, selectedRoute } = this.data
-    let info = ''
-    if (selectedRoute[0] === selectedRoute[1]) {
-      info += '目的地和出发地一样，路径无效\n'
-    }
-    if (undefined === phoneNum || phoneNum.length != 11) {
-      info += ''
-    }
-  },
-
-  onLoad() {
+  initTime() {
     const now = new Date()
     const h = now.getHours()
     const hh = h < 10 ? '0' + h : '' + h
@@ -61,7 +31,64 @@ Page({
     const time = hh + ':' + mm
     this.setData({ time })
   },
-  
+
+  changeRoute({ detail: { value: route } }) {
+    this.setData({ route, info: false })
+  },
+
+  changeType({ detail: { value: carType } }) {
+    this.setData({ carType })
+  },
+
+  changeTime({ detail: { value: time } }) {
+    this.setData({ time })
+  },
+
+  changeTailNum({ detail: { value: tailNum } }) {
+    this.setData({ tailNum, info: false })
+  },
+
+  changePhoneNum({ detail: { value: phoneNum } }) {
+    this.setData({ phoneNum, info: false })
+  },
+
+  changeSeatsCount({ detail: { value: seatsType } }) {
+    this.setData({ seatsType })
+  },
+
+  release() {
+    const {
+      route, time,
+      seatsType, selectType,
+      tailNum, phoneNum
+    } = this.data
+
+    let info = ''
+    if (route[0] === route[1]) {
+      info += '目的地和出发地一样，路径无效'
+    }
+    if (undefined === phoneNum || phoneNum.length != 11) {
+      info += '\n无效手机号，请输入 11 位手机号码'
+    }
+    if (undefined === tailNum || tailNum.length < 3) {
+      info += '\n请输入至少三位车牌尾号'
+    }
+    if (0 === info.length) {
+      usdt.release({
+        route, time,
+        seatsType, selectType,
+        tailNum, phoneNum
+      })
+      wx.reLaunch({ url: '/pages/index/index' })
+    } else {
+      this.setData({ info })
+    }
+  },
+
+  onLoad() {
+    this.initTime()
+  },
+
   onUnload() {
 
   }
