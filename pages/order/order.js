@@ -32,7 +32,8 @@ Page({
     const { origin, target, phone, needSeats:n } = last
     needSeats = n
     this.setData({
-      origin, target, phone, dSeats: possibleSeats.indexOf(needSeats)
+      origin, target, phone,
+      dSeats: possibleSeats.indexOf(needSeats)
     })
   },
 
@@ -81,6 +82,11 @@ Page({
     if (phoneInfo === isValidPhone(value)) {
       this.setData({ phoneInfo: false === phoneInfo })
     }
+  },
+
+  swap() {
+    const { origin: target, target: origin } = this.data
+    this.setData({ origin, target })
   },
 
   order() {

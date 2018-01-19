@@ -17,3 +17,10 @@
 .row > .label.info {
   color: red;
 }
+
+.row > .swap {
+  color: lightgray;
+  font-size: 15px;
+  line-height: 25px;
+  padding-left: 25px;
+}

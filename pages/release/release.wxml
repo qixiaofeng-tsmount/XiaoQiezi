@@ -2,7 +2,7 @@
 
 <view class='full centering'>
   <view class='row'>
-    <view class='label'>出发地点</view>
+    <view class='label'>出发地点</view><view class='swap' bindtap='swap'>与目的地交换</view>
     <view wx:if='{{originInfo}}' class='info'>{{originInfo}}</view>
   </view>
   <view class='row'>

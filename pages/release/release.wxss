@@ -32,3 +32,10 @@
   font-size: 15px;
   width: 33%;
 }
+
+.row > .swap {
+  font-size: 15px;
+  line-height: 25px;
+  color: lightgray;
+  padding-right: 8px;
+}

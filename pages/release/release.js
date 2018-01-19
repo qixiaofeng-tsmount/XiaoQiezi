@@ -133,6 +133,18 @@ Page({
     }
   },
 
+  swap() {
+    const t = { origins, targets }
+    origins = t.targets
+    targets = t.origins
+    this.setData({
+      dOrigins: availableOrigins(),
+      dTargets: availableTargets(),
+      originInfo: origins.length > 0 ? false : atLeastOne,
+      targetInfo: targets.length > 0 ? false : atLeastOne
+    })
+  },
+
   release() {
     let {
       seatsCount, carType, carColor,
