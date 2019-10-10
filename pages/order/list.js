@@ -6,6 +6,11 @@ Page({
 
   data: {},
 
+  cancel() {
+    usdt.cancelOrdered()
+    wx.reLaunch({ url: '/pages/index/index' })
+  },
+
   onLoad: function (options) {
     const order = usdt.getOrder()
     if (undefined === order) {

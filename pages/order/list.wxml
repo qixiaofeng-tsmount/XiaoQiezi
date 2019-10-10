@@ -4,7 +4,7 @@
   您已发出{{dDatetime}}时{{needSeats}}人从{{origin}}到{{target}}的订单
 </view>
 <view class='c'>
-  <button size='mini'>撤销订单</button>
+  <button size='mini' bindtap='cancel'>撤销订单</button>
 </view>
 <view class='order c sl'>下拉可刷新页面</view>
 

@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/order/list",
-    "pages/order/order",
     "pages/release/status",
     "pages/release/release",
+    "pages/order/list",
+    "pages/order/order",
     "pages/index/index"
   ],
   "window": {
